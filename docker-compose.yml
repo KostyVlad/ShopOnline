@@ -1,9 +1,8 @@
-version: "3.8"
+version: "v1.1"
 services:
   appserver:
     container_name: shop-app
-    build: .
-    image: shop-project
+    image: vladkost/shop-online:v1.0
     ports:
       - "8080:8080"
     depends_on:
