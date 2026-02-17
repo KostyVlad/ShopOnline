@@ -1,17 +1,24 @@
-version: '3.8'
-
+version: "3.8"
 services:
-  postgres:
-    image: postgres:16
-    container_name: postgres-shop
+  appserver:
+    container_name: shop-app
+    build: .
+    image: shop-project
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-volumes:
-  postgres-data:
+      - ./postgresdata:/var/lib/postgresql/data
