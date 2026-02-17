@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ShopRepository extends CrudRepository<Product, Long> {
 
-
     @Modifying
     @Transactional
     @Query(value = "TRUNCATE TABLE products RESTART IDENTITY", nativeQuery = true)
